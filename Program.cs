@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using LP3.BlazorServer.Components;
 using LP3.BlazorServer.Components.Account;
 using LP3.BlazorServer.Data;
+using LP3.BlazorServer.Application.Services;
 using LP3.BlazorServer.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,13 +39,14 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
-// ===============================
+
 // REPOSITORIOS
-// ===============================
+
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 builder.Services.AddScoped<IEstudianteRepository, EstudianteRepository>();
+builder.Services.AddScoped<IEstudianteService, EstudianteService>();
 
 var app = builder.Build();
 
